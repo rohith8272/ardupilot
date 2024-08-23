@@ -50,7 +50,7 @@ public:
     }
 
  
-    /*  Create and set in/out socket for Airsim simulator */
+    /*  Create and set in/out socket for Xplane simulator */
     void set_interface_ports(const char* address, const int port_in, const int port_out) override;
 
 
