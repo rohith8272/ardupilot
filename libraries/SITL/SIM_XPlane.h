@@ -49,6 +49,14 @@ public:
         return NEW_NOTHROW XPlane(frame_str);
     }
 
+    /*  Create and set in/out socket for Gazebo simulator */
+    void set_interface_ports(const char* address, const int port_in, const int port_out) override {
+        xplane_ip = address;
+        xplane_port = port_in;
+        bind_port = port_out;
+    }
+
+
 private:
 
     bool receive_data(void);
@@ -67,8 +75,9 @@ private:
     }
     
     const char *xplane_ip = "127.0.0.1";
-    uint16_t xplane_port = 49000;
-    uint16_t bind_port = 49001;
+    
+    uint16_t xplane_port;                 // Port for receiving data from X-Plane
+    uint16_t bind_port;   
     // udp socket, input and output
     SocketAPM_native socket_in{true};
     SocketAPM_native socket_out{true};
