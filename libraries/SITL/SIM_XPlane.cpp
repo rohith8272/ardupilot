@@ -99,23 +99,6 @@ XPlane::XPlane(const char *frame_str) :
         xplane_ip = colon+1;
     }
 
-
-void XPlane::set_interface_ports(const char* address, const int port_in, const int port_out)
-{
-    
-	//airsim_ip = address;
-	xplane_port = port_out;
-	bind_port = port_in;
-
-    socket_in.bind("0.0.0.0", bind_port);
-    printf("Waiting for XPlane data on UDP port %u and sending to port %u\n",
-           (unsigned)bind_port, (unsigned)xplane_port);
-}
-
-    //socket_in.bind("0.0.0.0", bind_port);
-    //printf("Waiting for XPlane data on UDP port %u and sending to port %u\n",
-           //(unsigned)bind_port, (unsigned)xplane_port);
-
     // XPlane sensor data is not good enough for EKF. Use fake EKF by default
     AP_Param::set_default_by_name("AHRS_EKF_TYPE", 10);
     AP_Param::set_default_by_name("GPS1_TYPE", 100);
@@ -131,6 +114,18 @@ void XPlane::set_interface_ports(const char* address, const int port_in, const i
     if (!load_dref_map(XPLANE_JSON)) {
         AP_HAL::panic("%s failed to load\n", XPLANE_JSON);
     }
+}
+
+void XPlane::set_interface_ports(const char* address, const int port_in, const int port_out)
+{
+    
+	//airsim_ip = address;
+	xplane_port = port_out;
+	bind_port = port_in;
+
+    socket_in.bind("0.0.0.0", bind_port);
+    printf("Waiting for XPlane data on UDP port %u and sending to port %u\n",
+           (unsigned)bind_port, (unsigned)xplane_port);
 }
 
 /*
