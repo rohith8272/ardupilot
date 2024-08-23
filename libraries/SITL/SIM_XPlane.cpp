@@ -118,9 +118,9 @@ XPlane::XPlane(const char *frame_str) :
 
 void XPlane::set_interface_ports(const char* address, const int port_in, const int port_out)
 {
-    socket_in.bind("0.0.0.0", bind_port);
+    socket_in.bind("0.0.0.0", port_in);
     printf("Waiting for XPlane data on UDP port %u and sending to port %u\n",
-           (unsigned)bind_port, (unsigned)xplane_port);
+           (unsigned)port_in, (unsigned)port_out);
            
 	//airsim_ip = address;
 	xplane_port = port_out;
